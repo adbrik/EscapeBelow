@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.2" orientation="orthogonal" renderorder="right-down" width="240" height="40" tilewidth="32" tileheight="32" infinite="0" nextobjectid="146">
+<map version="1.0" tiledversion="1.1.2" orientation="orthogonal" renderorder="right-down" width="240" height="40" tilewidth="32" tileheight="32" infinite="0" nextobjectid="151">
  <tileset firstgid="1" source="tile-sheet.tsx"/>
  <layer name="background" width="240" height="40">
   <data encoding="base64" compression="zlib">
@@ -47,5 +47,10 @@
   <object id="137" x="1632" y="704" width="96" height="96"/>
   <object id="144" x="1760" y="608" width="96" height="96"/>
   <object id="145" x="1952" y="576" width="160" height="64"/>
+  <object id="146" x="-36" y="-8" width="32" height="288"/>
+  <object id="147" x="-32" y="-32" width="832" height="32"/>
+  <object id="148" x="800" y="-32" width="224" height="32"/>
+  <object id="149" x="992" y="0" width="32" height="128"/>
+  <object id="150" x="896" y="96" width="96" height="32"/>
  </objectgroup>
 </map>

@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -33,6 +34,8 @@ import com.escapebelow.game.Sprites.Character;
  */
 
 public class PlayScreen implements Screen {
+    TextureAtlas atlas;
+
     private OrthographicCamera gameCam;
     private Viewport gamePort;
     private Hud hud;
@@ -48,9 +51,10 @@ public class PlayScreen implements Screen {
     private Character player;
 
     private EscapeBelow game;
-    Texture texture = new Texture("badlogic.jpg");
 
     public PlayScreen (EscapeBelow game){
+        atlas = new TextureAtlas("Panda.pack");
+
         this.game = game;
         gameCam = new OrthographicCamera();
         gamePort = new FitViewport(EscapeBelow.V_WIDTH / EscapeBelow.PPM ,EscapeBelow.V_HEIGHT/	EscapeBelow.PPM,gameCam);
@@ -71,9 +75,10 @@ public class PlayScreen implements Screen {
 
         //Gdx.input.setOnscreenKeyboardVisible(true);
 
-        player = new Character(world);
+        player = new Character(world, this);
 
         for(MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
+            object.setVisible(false);
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
             bdef.type = BodyDef.BodyType.StaticBody;
@@ -85,6 +90,10 @@ public class PlayScreen implements Screen {
             fdef.shape = shape;
             body.createFixture(fdef);
         }
+    }
+
+    public TextureAtlas getAtlas(){
+        return atlas;
     }
 
     @Override
@@ -108,6 +117,8 @@ public class PlayScreen implements Screen {
         handleInput(dt);
         world.step(1/60f, 6,2);
 
+        player.update(dt);
+
         gameCam.position.x = player.b2body.getPosition().x;
         gameCam.position.y = player.b2body.getPosition().y;
 
@@ -123,7 +134,12 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
-        b2dr.render(world, gameCam.combined);
+        //b2dr.render(world, gameCam.combined);
+
+        game.batch.setProjectionMatrix(gameCam.combined);
+        game.batch.begin();
+        player.draw(game.batch);
+        game.batch.end();
 
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
@@ -151,6 +167,10 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
+        map.dispose();
+        renderer.dispose();
+        hud.dispose();
+        b2dr.dispose();
 
     }
 }

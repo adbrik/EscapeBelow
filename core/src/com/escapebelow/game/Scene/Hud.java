@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.escapebelow.game.EscapeBelow;
@@ -15,7 +16,7 @@ import com.escapebelow.game.EscapeBelow;
  * Created by Arik on 2018-02-17.
  */
 
-public class Hud {
+public class Hud implements Disposable{
     public int lives;
     public Stage stage;
     public Viewport viewport;
@@ -44,5 +45,8 @@ public class Hud {
     }
 
 
-
+    @Override
+    public void dispose() {
+        stage.dispose();
+    }
 }

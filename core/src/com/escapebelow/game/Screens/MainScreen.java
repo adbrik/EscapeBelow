@@ -58,10 +58,8 @@ public class MainScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-        backgroundSprite.draw(game.batch);
+        game.batch.draw(backgroundSprite,0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         game.batch.end();
-
-
     }
 
     @Override
