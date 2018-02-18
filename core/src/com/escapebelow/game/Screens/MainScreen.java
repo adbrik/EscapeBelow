@@ -3,11 +3,16 @@ package com.escapebelow.game.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.escapebelow.game.EscapeBelow;
 import com.escapebelow.game.Screens.*;
+
 
 
 
@@ -20,12 +25,17 @@ public class MainScreen implements Screen {
     EscapeBelow game;
     public static Texture backgroundTexture;
     public static Sprite backgroundSprite;
-    private SpriteBatch spriteBatch;
+    OrthographicCamera camera;
+    Viewport viewport;
 
-    public  MainScreen (EscapeBelow game){
+
+    public  MainScreen (EscapeBelow game) {
         this.game = game;
         backgroundTexture = new Texture("Title.jpg");
-        backgroundSprite =new Sprite(backgroundTexture);
+        backgroundSprite = new Sprite(backgroundTexture);
+        camera = new OrthographicCamera();
+        viewport = new FillViewport(800, 400, camera);
+
     }
 
     @Override
@@ -46,6 +56,7 @@ public class MainScreen implements Screen {
         update(delta);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         backgroundSprite.draw(game.batch);
         game.batch.end();
@@ -55,7 +66,10 @@ public class MainScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        camera.viewportWidth = width;
+        camera.viewportHeight = height;
+        //you can move it to whatever position you want here
+        camera.update();
     }
 
     @Override

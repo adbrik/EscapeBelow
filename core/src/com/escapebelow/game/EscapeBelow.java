@@ -11,8 +11,9 @@ import com.badlogic.gdx.Game.*;
 
 public class EscapeBelow extends Game {
 	public SpriteBatch batch;
-    public static int V_WIDTH = 800;
-    public static int V_HEIGHT = 400;
+    public static int V_WIDTH = 600;
+    public static int V_HEIGHT = 350;
+    public static float PPM = 100;
 	Texture img;
 
 	@Override
